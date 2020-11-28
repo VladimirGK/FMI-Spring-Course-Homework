@@ -27,7 +27,7 @@ public class RecipeController {
     }
 
     @GetMapping("/{id:^[A-Fa-f0-9]{24}$}")
-    public Recipe getPostById(@PathVariable("id") String id) {
+    public Recipe getRecipeById(@PathVariable("id") String id) {
         return recipeService.getRecipeById(id);
     }
 

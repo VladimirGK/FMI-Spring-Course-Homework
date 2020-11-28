@@ -2,22 +2,30 @@ package com.homework.first.service.impl;
 
 import com.homework.first.exception.EntityNotFoundException;
 import com.homework.first.model.Recipe;
+import com.homework.first.model.User;
 import com.homework.first.repository.RecipeRepository;
 import com.homework.first.service.RecipeService;
+import com.homework.first.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
+    private final UserService userService;
+
+    public RecipeServiceImpl(RecipeRepository recipeRepository, UserService userService) {
+        this.recipeRepository = recipeRepository;
+        this.userService = userService;
+    }
 
     @Autowired
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
-    }
+
 
     @Override
     public List<Recipe> getAllRecipes() {
@@ -32,14 +40,17 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe createRecipe(Recipe recipe) {
-        //String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        //User user = userService.getUserByUsername(username);
-        //recipe.setUserId(user.getId());
+        if(recipe.getUserId() == null) {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userService.getUserByUsername(username);
+            recipe.setUserId(user.getId());
+        }
         return recipeRepository.insert(recipe);
     }
 
     @Override
     public Recipe updateRecipe(Recipe recipe) {
+        recipe.setModified(LocalDateTime.now());
         return recipeRepository.save(recipe);
     }
 
@@ -48,5 +59,9 @@ public class RecipeServiceImpl implements RecipeService {
         Recipe removed = getRecipeById(id);
         recipeRepository.deleteById(id);
         return removed;
+    }
+    @Override
+    public long getCount() {
+        return recipeRepository.count();
     }
 }

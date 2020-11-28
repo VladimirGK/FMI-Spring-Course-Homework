@@ -48,4 +48,19 @@ public class Recipe {
     private LocalDateTime created = LocalDateTime.now();
     private LocalDateTime modified = LocalDateTime.now();
 
+    public Recipe(@NonNull @NotNull @Size(max = 80) String name,
+                  @NonNull @NotNull @Size(max = 256) String shortDescription,
+                  @NonNull @NotNull int preparationTime,
+                  List<String> requiredProducts,
+                  @URL String photoUrl,
+                  @NonNull @NotNull @Size(max = 2048) String detailedDescription,
+                  List<String> tags) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.preparationTime = preparationTime;
+        this.requiredProducts = requiredProducts;
+        this.photoUrl = photoUrl;
+        this.detailedDescription = detailedDescription;
+        this.tags = tags;
+    }
 }

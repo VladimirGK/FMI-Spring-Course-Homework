@@ -10,4 +10,5 @@ public interface RecipeService {
     Recipe createRecipe(Recipe recipe);
     Recipe updateRecipe(Recipe recipe);
     Recipe deleteRecipeById(String id);
+    long getCount();
 }
