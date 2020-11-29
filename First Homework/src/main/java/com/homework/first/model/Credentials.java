@@ -12,9 +12,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class Credentials {
     @NotNull
-    @Size(min=2, max=15)
+    @Size(min = 2, max = 15)
     private String username;
     @NotNull
-    @Size(min=8)
+    @Size(min = 8)
     private String password;
 }

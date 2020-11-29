@@ -35,7 +35,7 @@ public class LoginController {
 
     @PostMapping("/api/login")
     public JwtResponse login(@Valid @RequestBody Credentials credentials, Errors errors) {
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             throw new InvalidEntityDataException("Invalid username or password");
         }
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -47,9 +47,12 @@ public class LoginController {
     }
 
     @PostMapping("/api/register")
-    public User register(@Valid @RequestBody User user, Errors errors){
-        if(errors.hasErrors()){
-            throw new InvalidEntityDataException("Invalid user data",  getErrors(errors));
+    public User register(@Valid @RequestBody User user, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new InvalidEntityDataException("Invalid user data", getErrors(errors));
+        }
+        if (userService.existsByUsername(user.getUsername())) {
+            throw new InvalidEntityDataException("Username is taken");
         }
         user.setRoles(new HashSet<>(Collections.singletonList(Role.USER)));
         return userService.addUser(user);
