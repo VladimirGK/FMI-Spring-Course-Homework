@@ -1,6 +1,5 @@
 package com.homework.first.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -22,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Document(collection="users")
+@Document(collection = "users")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -33,26 +32,26 @@ public class User implements UserDetails {
     private String id;
     @NonNull
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min = 2, max = 30)
     private String firstName;
     @NonNull
     @NotNull
-    @Size(min=2, max=15)
+    @Size(min = 2, max = 15)
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NonNull
-    @Size(min=8)
+    @Size(min = 8)
     private String password;
     @NonNull
     @NotNull
-    @Size(min=2)
+    @Size(min = 2)
     private String gender;
     @NonNull
     @URL
     private String imageUrl;
     @NonNull
     @NotNull
-    @Size(min=2, max=512)
+    @Size(min = 2, max = 512)
     private String description;
     private boolean active = true;
     private Set<Role> roles = new HashSet<>(Arrays.asList(Role.USER, Role.ADMIN));
@@ -66,7 +65,7 @@ public class User implements UserDetails {
                 @NonNull @Size(min = 8) String password,
                 @NonNull @Size(min = 2) String gender,
                 @NonNull @URL String imageUrl,
-                @NonNull @Size(min=2, max=512) String description,
+                @NonNull @Size(min = 2, max = 512) String description,
                 Set<Role> roles) {
         this.firstName = firstName;
         this.username = username;
@@ -76,7 +75,6 @@ public class User implements UserDetails {
         this.description = description;
         this.roles = roles;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

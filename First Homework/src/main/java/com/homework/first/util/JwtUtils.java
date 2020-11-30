@@ -16,8 +16,7 @@ import java.util.function.Function;
 public class JwtUtils {
     public static final long JWT_TOKEN_VALIDITY = 3 * 60 * 60; //3 hours
 
-    // Demo only - don't use this in production => get secret from environment variable instead
-    @Value("jwt.secret")
+    @Value("$homework.jwt.secret")
     private String secret;
 
     //retrieve username from jwt token
@@ -35,7 +34,7 @@ public class JwtUtils {
         return claimsResolver.apply(claims);
     }
 
-    //for retrieveing any information from token we will need the secret key
+    //for retrieving any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         return removed;
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
     @Override
     public long getCount() {
         return userRepository.count();

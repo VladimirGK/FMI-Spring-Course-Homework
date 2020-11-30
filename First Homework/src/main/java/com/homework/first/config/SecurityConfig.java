@@ -35,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(POST,"/api/login", "/api/register").permitAll()
-                .antMatchers(GET,"/api/recipes/**").permitAll()
+                .antMatchers(POST, "/api/login", "/api/register").permitAll()
+                .antMatchers(GET, "/api/recipes/**").permitAll()
                 .antMatchers(POST, "/api/recipes").hasAnyRole(USER.toString(), ADMIN.toString())
                 .antMatchers(PUT, "/api/recipes").hasAnyRole(USER.toString(), ADMIN.toString())
                 .antMatchers(DELETE, "/api/recipes").hasAnyRole(USER.toString(), ADMIN.toString())
@@ -57,8 +57,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager getAuthenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-    private boolean validId(String id) {
-        return true;
     }
 }

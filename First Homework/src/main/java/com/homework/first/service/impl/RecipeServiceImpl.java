@@ -7,7 +7,6 @@ import com.homework.first.repository.RecipeRepository;
 import com.homework.first.service.RecipeService;
 import com.homework.first.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +18,11 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
     private final UserService userService;
 
+    @Autowired
     public RecipeServiceImpl(RecipeRepository recipeRepository, UserService userService) {
         this.recipeRepository = recipeRepository;
         this.userService = userService;
     }
-
-    @Autowired
-
 
     @Override
     public List<Recipe> getAllRecipes() {
@@ -40,7 +37,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe createRecipe(Recipe recipe) {
-        if(recipe.getUserId() == null) {
+        if (recipe.getUserId() == null) {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             User user = userService.getUserByUsername(username);
             recipe.setUserId(user.getId());
@@ -60,6 +57,7 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(id);
         return removed;
     }
+
     @Override
     public long getCount() {
         return recipeRepository.count();
