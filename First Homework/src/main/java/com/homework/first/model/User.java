@@ -76,6 +76,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString()))

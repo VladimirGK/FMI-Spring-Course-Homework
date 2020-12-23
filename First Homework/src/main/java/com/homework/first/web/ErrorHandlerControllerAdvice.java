@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.naming.AuthenticationException;
 
-@ControllerAdvice(basePackageClasses = ErrorHandlerControllerAdvice.class)
+@ControllerAdvice
 public class ErrorHandlerControllerAdvice {
 
     @ExceptionHandler

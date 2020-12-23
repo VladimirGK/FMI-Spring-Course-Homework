@@ -49,11 +49,11 @@ public class DataInitializer implements CommandLineRunner {
         if (userService.getCount() == 0) {
             SAMPLE_USERS.forEach(userService::addUser);
         }
-        if (recipeService.getCount() == 0) {
-            SAMPLE_RECIPES.forEach(recipe -> {
-                recipe.setUserId(userService.getUserByUsername("Admin").getId());
-                recipeService.createRecipe(recipe);
-            });
-        }
+//        if (recipeService.getCount() == 0) {
+//            SAMPLE_RECIPES.forEach(recipe -> {
+//                recipe.setUserId(userService.getUserByUsername("Cooker").getId());
+//                recipeService.createRecipe(recipe);
+//            });
+//        }
     }
 }
